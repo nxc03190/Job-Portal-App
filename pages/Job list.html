@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Jobs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightcyan;
+        }
+
+        h3 {
+            text-align: center;
+            color: crimson;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        caption {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #4caf50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>List of Jobs</h3>
+    <table>
+        <caption>On-site Job Applications</caption>
+        <thead>
+            <tr>
+                <th>Jobs</th>
+                <th>Required Experience</th>
+                <th>Location</th>
+                <th>Apply</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Computer Science</td>
+                <td>Two years</td>
+                <td>Warrensburg, MO</td>
+                <td><button type="button" onclick="submit()">Click to Apply</button></td>
+            </tr>
+            <tr>
+                <td>Big Data and Analytics</td>
+                <td>Two years</td>
+                <td>Lee's Summit, MO</td>
+                <td><button type="button" onclick="submit()">Click to Apply</button></td>
+            </tr>
+            <tr>
+                <td>Information Technology</td>
+                <td>Two years</td>
+                <td>Warrensburg, MO</td>
+                <td><button type="button" onclick="submit()">Click to Apply</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+</body>
+<script>
+    function submit() {
+        window.location.href = "./submit.html";
+    }
+</script>
+</html>
