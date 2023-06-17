@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List of APPlications</title>
+</head>
+<body>
+  <h3>User Data Results</h3>
+  <div id="userData"></div>
+
+  <script>
+    // Fetch user data from the server
+    fetch('/displayResults')
+      .then(response => response.json())
+      .then(userData => {
+        populateUserData(userData);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+
+    // Function to populate the user data in the UI
+    function populateUserData(userData) {
+      const userDataDiv = document.getElementById('userData');
+
+      userData.forEach(user => {
+        const userDiv = document.createElement('div');
+        userDiv.innerHTML = `
+          <strong>Name:</strong> ${user.firstname} ${user.lastname}<br>
+          <strong>Email:</strong> ${user.email}<br>
+          <strong>Phone:</strong> ${user.phone}<br>
+          <strong>University:</strong> ${user.university} ${user.degree}<br>
+          <strong>Applied for:</strong> ${user.job}<br>
+          <strong>Prefered Location:</strong> ${user.job_preference}<br>
+          <strong>Previous Experience:</strong> ${user.previousExperience}<br>
+          <!-- Add more fields as needed -->
+          <br>
+        `;
+        userDataDiv.appendChild(userDiv);
+      });
+    }
+  </script>
+</body>
+</html>

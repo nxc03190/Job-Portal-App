@@ -31,6 +31,9 @@ app.get('/contact%20us.html', function(req, res) {
 app.get('/index_test.html', function(req, res) {
     res.sendFile(path.join(__dirname, 'pages/index_test.html'));
 });
+app.get('/applications.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'pages/applications.html'));
+});
 
 
 
@@ -41,7 +44,7 @@ const connection = mysql.createConnection({
   host: 'localhost', // Replace with your MySQL host
   user: 'root', // Replace with your MySQL username
   password: 'root', // Replace with your MySQL password
-  //database: 'myjobportaldb', // Replace with your MySQL database name
+  database: 'mydatabase', // Replace with your MySQL database name
 });
 
 // Connect to MySQL
@@ -145,7 +148,19 @@ app.post('/submitApplication', (req, res) => {
   });
 });
 
-
+app.get('/displayResults', (req, res) => {
+  // Fetch user data from the user_data table
+  const selectQuery = 'SELECT * FROM user_data';
+  connection.query(selectQuery, (error, results) => {
+    if (error) {
+      console.error('Error fetching user data:', error);
+      res.status(500).json({ error: 'Failed to fetch user data' });
+    } else {
+      console.log('User data fetched successfully');
+      res.status(200).json(results);
+    }
+  });
+});
 
 
 // Start the server
