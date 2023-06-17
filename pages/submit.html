@@ -100,10 +100,10 @@
                 <input type="tel" name="phone" placeholder="Enter phone number" pattern="[0-9]{10,15}" />
             </div>
 
-            <div>
+            <!-- <div>
                 <label>Password:</label>
                 <input type="password" name="password" placeholder="Enter password" />
-            </div>
+            </div> -->
 
             <div>
                 <label>Gender:</label>
@@ -122,10 +122,24 @@
             </div>
 
             <div>
+                <label>Applying for:</label>
+                <select name="job">
+                    <option value="select job">-- Select Job Category--</option>
+                    <option value="Big Data and Analytics">Big Data and Analytics</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Computer Science">Computer Science</option>
+                </select>
+            </div>
+
+            <div>
                 <label>Programming Skills:</label>
-                <input type="checkbox" name="language1" value="SQL" checked /> SQL
-                <input type="checkbox" name="language2" value="Python" /> Python
-                <input type="checkbox" name="language3" value="Java" /> Java
+                <select name="language">
+                    <option value="selectLanguage">-- Select Language --</option>
+                    <option value="SQL">SQL</option>
+                    <option value="JAVA">JAVA</option>
+                    <option value="C">C</option>
+                    <option value="PYTHON">PYTHON</option>
+                </select>
             </div>
 
             <div>
@@ -143,22 +157,16 @@
                 <label>Location and Job Preference:</label>
                 <select name="job_preference">
                     <option value="">-- Location and Job --</option>
-                    <optgroup label="Europe">
-                        <option value="cloud1">Cloud</option>
-                        <option value="devops1">Dev Ops</option>
-                        <option value="analytics1">Analytics</option>
-                    </optgroup>
-                    <optgroup label="America">
-                        <option value="cloud2">Cloud</option>
-                        <option value="devops2">Dev Ops</option>
-                        <option value="analytics2">Analytics</option>
-                    </optgroup>
+                    <option value="Warrensburg">Warrensburg</option>
+                    <option value="Lee's Summit">Lee's Summit</option>
+                        
+                    
                 </select>
             </div>
 
             <div>
                 <label>Previous Job Experience:</label>
-                <textarea rows="5" cols="50"></textarea>
+                <textarea rows="5" cols="50" name="previousExperience"></textarea>
             </div>
 
             <div>
@@ -167,8 +175,8 @@
             </div>
 
             <div>
-                <label>Your University Website (http://):</label>
-                <input type="url" name="university_website">
+                <label>Your University NAME:</label>
+                <input type="text" name="university">
             </div>
 
             <div>
