@@ -11,5 +11,7 @@
   "main": "server.js",
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "job portal node app",
+  "repository": {"type": "git","url": ""},
+  "homepage": ""
 }

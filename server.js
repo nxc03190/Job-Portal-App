@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const path = require('path')
 const app = express();
 app.use(express.json());
+const http = require('http');
 
 
 
@@ -164,7 +165,8 @@ app.get('/displayResults', (req, res) => {
 
 
 // Start the server
-const port = 3000; // Replace with your desired port number
+//const port = 3000; 
+const port=process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
