@@ -12,6 +12,6 @@
   "author": "",
   "license": "ISC",
   "description": "job portal node app",
-  "repository": {"type": "git","url": ""},
+  "repository": {"type": "git","url": "https://github.com/nxc03190/job-portal-app.git"},
   "homepage": ""
 }
