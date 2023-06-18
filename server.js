@@ -4,6 +4,9 @@ const path = require('path')
 const app = express();
 app.use(express.json());
 const http = require('http');
+const currentDirectory = __dirname;
+const dbDetailsPath = path.join(currentDirectory, 'pages/variables');
+const {dbDetails} = require(dbDetailsPath)
 
 
 
@@ -36,16 +39,20 @@ app.get('/applications.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'pages/applications.html'));
 });
 
+app.get('/applicants.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'pages/applicants.html'));
+});
+
 
 
 
 
 // Configure MySQL connection
 const connection = mysql.createConnection({
-  host: 'localhost', // Replace with your MySQL host
-  user: 'root', // Replace with your MySQL username
-  password: 'root', // Replace with your MySQL password
-  database: 'mydatabase', // Replace with your MySQL database name
+  host: dbDetails.hostName,
+  user: dbDetails.user, 
+  password:  dbDetails.password,
+  //database: 'mydatabase',
 });
 
 // Connect to MySQL
@@ -68,7 +75,7 @@ app.post('/submitApplication', (req, res) => {
   console.log(userData);
 
   // Create the database if it doesn't exist
-  const createDatabaseQuery = `CREATE DATABASE IF NOT EXISTS mydatabase`;
+  const createDatabaseQuery = `CREATE DATABASE IF NOT EXISTS ${dbDetails.database}`;
   connection.query(createDatabaseQuery, (databaseError) => {
     if (databaseError) {
       console.error('Error creating database:', databaseError);
@@ -77,7 +84,7 @@ app.post('/submitApplication', (req, res) => {
       console.log('Database created or already exists');
 
       // Select the database to use
-      const useDatabaseQuery = `USE mydatabase`;
+      const useDatabaseQuery = `USE ${dbDetails.database}`;
       connection.query(useDatabaseQuery, (useDatabaseError) => {
         if (useDatabaseError) {
           console.error('Error using database:', useDatabaseError);
@@ -86,7 +93,7 @@ app.post('/submitApplication', (req, res) => {
           console.log('Using database');
 
           // Create user_data table if it doesn't exist
-          const createTableQuery = `CREATE TABLE IF NOT EXISTS user_data (
+          const createTableQuery = `CREATE TABLE IF NOT EXISTS ${dbDetails.tableName} (
             id INT AUTO_INCREMENT PRIMARY KEY,
             firstname VARCHAR(50),
             lastname VARCHAR(50),
@@ -106,13 +113,13 @@ app.post('/submitApplication', (req, res) => {
 
           connection.query(createTableQuery, (error) => {
             if (error) {
-              console.error('Error creating user_data table:', error);
-              res.status(500).json({ error: 'Failed to create user_data table' });
+              console.error(`Error creating ${dbDetails.tableName} table:`, error);
+              res.status(500).json({ error: `Failed to create ${dbDetails.tableName} table` });
             } else {
-              console.log('user_data table created or already exists');
+              console.log(`${dbDetails.tableName} table created or already exists`);
 
               // Insert user data into the user_data table
-              const insertQuery = 'INSERT INTO user_data (firstname, lastname, email, phone, gender, birthday, age, job, language, degree, job_preference, color, university, previousExperience) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+              const insertQuery = `INSERT INTO ${dbDetails.tableName} (firstname, lastname, email, phone, gender, birthday, age, job, language, degree, job_preference, color, university, previousExperience) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
               const values = [
                 userData.firstname,
                 userData.lastname,
@@ -148,20 +155,30 @@ app.post('/submitApplication', (req, res) => {
     }
   });
 });
-
 app.get('/displayResults', (req, res) => {
   // Fetch user data from the user_data table
-  const selectQuery = 'SELECT * FROM user_data';
-  connection.query(selectQuery, (error, results) => {
-    if (error) {
-      console.error('Error fetching user data:', error);
-      res.status(500).json({ error: 'Failed to fetch user data' });
+  const useDatabaseQuery = `USE ${dbDetails.database}`;
+  connection.query(useDatabaseQuery, (useDatabaseError) => {
+    if (useDatabaseError) {
+      console.error('Error using database:', useDatabaseError);
+      res.status(500).json({ error: 'Failed to use database' });
     } else {
-      console.log('User data fetched successfully');
-      res.status(200).json(results);
+      console.log('Using database');
+
+      const selectQuery = `SELECT * FROM ${dbDetails.tableName}`;
+      connection.query(selectQuery, (error, results) => {
+        if (error) {
+          console.error('Error fetching user data:', error);
+          res.status(500).json({ error: 'Failed to fetch user data' });
+        } else {
+          console.log('User data fetched successfully');
+          res.status(200).json(results);
+        }
+      });
     }
   });
 });
+
 
 
 // Start the server

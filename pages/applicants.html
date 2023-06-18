@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>List of Applications</title>
   <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
     h3 {
       text-align: center;
       background-color: black;
       color: white;
       padding: 10px;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
     }
 
     th, td {
@@ -25,7 +25,7 @@
   </style>
 </head>
 <body>
-  <h3>Applications</h3>
+  <h3>Applicant Details</h3>
   <table id="userData"></table>
 
   <script>
@@ -50,11 +50,9 @@
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>University</th>
-        <th>Degree</th>
-        <th>Applied for</th>
-        <th>Preferred Location</th>
-        <th>Previous Experience</th>
+        <th>Gender</th>
+        <th>DOB</th>
+        <th>age</th>
       `;
       tableHeader.appendChild(headerRow);
       userDataTable.appendChild(tableHeader);
@@ -66,12 +64,10 @@
         userRow.innerHTML = `
           <td>${user.firstname} ${user.lastname}</td>
           <td>${user.email}</td>
-          <td>${user.phone}</td>
-          <td>${user.university}</td>
-          <td>${user.degree}</td>
-          <td>${user.job}</td>
-          <td>${user.job_preference}</td>
-          <td>${user.previousExperience}</td>
+          <td>${user.phone}</td> 
+          <td>${user.gender}</td> 
+          <td>${user.birthday}</td> 
+          <td>${user.age}</td> 
         `;
         tableBody.appendChild(userRow);
       });
