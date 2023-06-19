@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+//const mysql = require('mysql2');
 const path = require('path')
 const app = express();
 app.use(express.json());
@@ -51,8 +52,11 @@ app.get('/applicants.html', (req, res) => {
 const connection = mysql.createConnection({
   host: dbDetails.hostName,
   user: dbDetails.user, 
-  password:  dbDetails.password,
-  //database: 'mydatabase',
+  password: dbDetails.password,
+  //database: dbDetails.database,
+  authPlugins: {
+    mysql_clear_password: () => () => Buffer.from('test@123459' + '\0'),
+  }
 });
 
 // Connect to MySQL
