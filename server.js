@@ -49,9 +49,9 @@ app.get('/applicants.html', (req, res) => {
 
 // Configure MySQL connection
 const connection = mysql.createConnection({
-  host: dbDetails.hostName,
-  user: dbDetails.user, 
-  password: dbDetails.password,
+  host: 'myjobportalserver.mysql.database.azure.com', //dbDetails.hostName,
+  user: 'adminnxc03190', //dbDetails.user, 
+  password: 'test@123459', //dbDetails.password,
   //database: dbDetails.database,
   authPlugins: {
     mysql_clear_password: () => () => Buffer.from('test@123459' + '\0'),
